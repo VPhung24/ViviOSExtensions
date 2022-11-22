@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UIStackView {
+public extension UIStackView {
     convenience init(arrangedSubViews: [UIView] = [], axis: NSLayoutConstraint.Axis, distribution: UIStackView.Distribution = .fill) {
         self.init(arrangedSubviews: arrangedSubViews)
         self.preservesSuperviewLayoutMargins = true

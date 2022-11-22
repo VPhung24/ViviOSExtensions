@@ -7,9 +7,9 @@
 
 import Foundation
 
-internal protocol Configurable {}
+public protocol Configurable {}
 
-extension Configurable {
+public extension Configurable {
     func configured(with: (inout Self) throws -> Void) rethrows -> Self {
         var mutable = self
         try with(&mutable)

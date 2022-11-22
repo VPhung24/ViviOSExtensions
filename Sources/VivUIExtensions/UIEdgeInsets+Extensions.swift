@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UIEdgeInsets {
+public extension UIEdgeInsets {
     init(_ edges: CGFloat) {
         self.init(top: edges, left: edges, bottom: edges, right: edges)
     }
