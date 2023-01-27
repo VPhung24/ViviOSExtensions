@@ -7,6 +7,7 @@
 
 import Foundation
 
-enum NetworkError: Error {
+public enum NetworkError: Error {
     case imageError
+    case bearerToken
 }

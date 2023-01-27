@@ -7,8 +7,8 @@
 
 import Foundation
 
-class AsyncDataFetcher: AsyncIteratorProtocol {
-    typealias Element = Data
+public class AsyncDataFetcher: AsyncIteratorProtocol {
+    public typealias Element = Data
 
     let chunkSize: Int
     let fileHandle: FileHandle
@@ -22,7 +22,7 @@ class AsyncDataFetcher: AsyncIteratorProtocol {
         fileHandle.closeFile()
     }
 
-    func next() async -> Data? {
+    public func next() async -> Data? {
         let data = fileHandle.readData(ofLength: chunkSize)
         return data.isEmpty ? nil : data
     }
