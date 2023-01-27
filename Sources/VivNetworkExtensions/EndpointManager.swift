@@ -7,12 +7,12 @@
 
 import Foundation
 
-enum Method: String {
+public enum Method: String {
     case GET
     case POST
 }
 
-protocol Endpoint {
+public protocol Endpoint {
     var path: String { get }
     var method: Method { get }
 }

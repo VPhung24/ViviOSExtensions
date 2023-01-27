@@ -10,9 +10,9 @@ import UIKit
 
 // Note: This is my go to code for quick projects since high school (5 yrs ago)... needs to be refactored and tested
 
-class APIManager {
+public class APIManager {
     static let shared = APIManager()
-
+    
     // force using shared instance
     private init() {}
     
@@ -24,10 +24,10 @@ class APIManager {
         components.queryItems = parameters.map {
             URLQueryItem(name: $0, value: "\($1)")
         }
-
+        
         return requestBuilder(url: components.url!, endpoint: endpoint, headers: headers)
     }
-
+    
     func requestBuilder(url: URL, endpoint: Endpoint, headers: [String: String]? = nil) -> URLRequest {
         let request = NSMutableURLRequest(url: url)
         request.httpMethod = endpoint.method.rawValue
@@ -36,26 +36,24 @@ class APIManager {
         }
         return request as URLRequest
     }
-
+    
     func networkTask<T: Codable>(request: URLRequest, endpoint: Endpoint, completionHandler: @escaping (T?, Error?) -> Void) {
         let session: URLSession = URLSession.shared
-
+        
         let task = session.dataTask(with: request) { data, _, error in
             guard let responseData = data, error == nil else {
                 completionHandler(nil, error)
                 return
             }
-
-  
-                let decoder = JSONDecoder()
-                do {
-                    let jsonData: T = try decoder.decode(T.self, from: responseData)
-                    completionHandler(jsonData, nil)
-                } catch let error { // catches decoding error from the try
-                    completionHandler(nil, error)
-                }
             
-
+            let decoder = JSONDecoder()
+            do {
+                let jsonData: T = try decoder.decode(T.self, from: responseData)
+                completionHandler(jsonData, nil)
+            } catch let error { // catches decoding error from the try
+                completionHandler(nil, error)
+            }
+            
         }
         task.resume()
     }
