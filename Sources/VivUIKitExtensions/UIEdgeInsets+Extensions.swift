@@ -1,6 +1,6 @@
 //
 //  UIEdgeInsets+Extensions.swift
-//  VivUIExtensions
+//  VivUIKitExtensions
 //
 //  Created by Vivian Phung on 11/17/22.
 //

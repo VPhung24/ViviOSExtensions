@@ -1,6 +1,6 @@
 //
 //  UserDefaults+Extensions.swift
-//  VivUIExtensions
+//  VivUIKitExtensions
 //
 //  Created by Vivian Phung on 10/27/22.
 //

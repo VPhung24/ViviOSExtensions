@@ -1,6 +1,6 @@
 //
-//  VivUIExtensionsUserDefaultsContactTests.swift
-//  VivUIExtensions
+//  VivUIKitExtensionsUserDefaultsContactTests.swift
+//  VivUIKitExtensionsTests
 //
 //  Created by Vivian Phung on 11/22/22.
 //
@@ -8,9 +8,9 @@
 import XCTest
 import Foundation
 import Contacts
-@testable import VivUIExtensions
+@testable import VivUIKitExtensions
 
-final class VivUIExtensionsUserDefaultsContactTests: XCTestCase {
+final class VivUIKitExtensionsUserDefaultsContactTests: XCTestCase {
     func testContactUserDefaultsExtension() throws {
         let contact = CNMutableContact()
         contact.givenName = "TestGivenName"

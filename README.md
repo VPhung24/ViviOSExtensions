@@ -1,8 +1,8 @@
-# VivUIExtensions
+# ViviOSExtensions
 
 Reusable UIKit Extensions and Configs
 
-## Using VivUIExtensions
+## Using VivUIKitExtensions
 
 #### Swift Package Manager
 
@@ -10,16 +10,16 @@ Simply add the package dependency to your `Package.swift`:
 
 ```swift
 dependencies: [
-  .package(url: "https://github.com/VPhung24/VivUIExtensions.git", from: "1.0.4")
+  .package(url: "https://github.com/VPhung24/ViviOSExtensions.git", from: "1.0.4")
 ]
 ```
 
-...and depend on `"VivUIExtensions"` in the necessary targets:
+...and depend on `"VivUIKitExtensions"` in the necessary targets:
 
 ```swift
 .target(
   name: ...,
-  dependencies: [.product(name: "VivUIExtensions", package: "VivUIExtensions")]
+  dependencies: [.product(name: "ViviOSExtensions", package: "VivUIKitExtensions")]
 ]
 ```
 

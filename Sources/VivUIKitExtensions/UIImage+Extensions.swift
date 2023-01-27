@@ -1,6 +1,6 @@
 //
 //  UIImage+Extensions.swift
-//  VivUIExtensions
+//  VivUIKitExtensions
 //
 //  Created by Vivian Phung on 11/22/22.
 //

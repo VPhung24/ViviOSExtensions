@@ -1,6 +1,6 @@
 //
 //  UIStackView+Extensions.swift
-//  VivUIExtensions
+//  VivUIKitExtensions
 //
 //  Created by Vivian Phung on 11/16/22.
 //
