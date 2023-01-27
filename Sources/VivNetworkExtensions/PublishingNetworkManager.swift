@@ -14,8 +14,12 @@ public struct ResultModel<InnerModel: Codable>: Identifiable, Codable {
 }
 
 public struct Network {
-
-    func getInnerModelFromResult<InnerModel: Codable>(parameters: [String: Any], header: [String: String], url: String, endpoint: Endpoint) -> AnyPublisher<[InnerModel], Never> {
+    
+    // https://docs.swift.org/swift-book/LanguageGuide/AccessControl.html#//apple_ref/doc/uid/TP40014097-CH41-ID3
+    // Struct Default Initializers must be defined public with no arguments (default struct init is private
+    public init() {}
+    
+    public func getInnerModelFromResult<InnerModel: Codable>(parameters: [String: Any], header: [String: String], url: String, endpoint: Endpoint) -> AnyPublisher<[InnerModel], Never> {
         
         let urlRequest: URLRequest = networkRequest(baseURL: url, endpoint: endpoint, parameters: parameters, headers: header)
         
