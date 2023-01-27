@@ -14,13 +14,22 @@ let package = Package(
         .library(
             name: "VivUIKitExtensions",
             targets: ["VivUIKitExtensions"]),
+        .library(
+            name: "VivNetworkExtensions",
+            targets: ["VivNetworkExtensions"]),
     ],
     targets: [
         .target(
             name: "VivUIKitExtensions",
             dependencies: []),
+        .target(
+            name: "VivNetworkExtensions",
+            dependencies: []),
         .testTarget(
             name: "VivUIKitExtensionsTests",
             dependencies: ["VivUIKitExtensions"]),
+        .testTarget(
+            name: "VivNetworkExtensionsTests",
+            dependencies: ["VivNetworkExtensions"]),
     ]
 )

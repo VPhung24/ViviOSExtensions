@@ -2,7 +2,8 @@
 
 Reusable UIKit Extensions and Configs
 
-## Using VivUIKitExtensions
+## Using VivUIKitExtensions or VivNetworkExtensions
+#### Note: USE VivNetworkExtensions with caution. This is old code I need to refactor and test.
 
 #### Swift Package Manager
 
@@ -14,13 +15,13 @@ dependencies: [
 ]
 ```
 
-...and depend on `"VivUIKitExtensions"` in the necessary targets:
+...and depend on `VivUIKitExtensions` or `VivNetworkExtensions` in the necessary targets:
 
 ```swift
 .target(
   name: ...,
-  dependencies: [.product(name: "ViviOSExtensions", package: "VivUIKitExtensions")]
-]
+  dependencies: [.product(name: "ViviOSExtensions", package: "VivUIKitExtensions"),
+  .product(name: "ViviOSExtensions", package: "VivNetworkExtensions")])
 ```
 
 #### Xcode
