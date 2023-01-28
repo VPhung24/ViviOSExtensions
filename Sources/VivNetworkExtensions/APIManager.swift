@@ -11,24 +11,24 @@ import UIKit
 // Note: This is my go to code for quick projects since high school (5 yrs ago)... needs to be refactored and tested
 
 public class APIManager {
-    static let shared = APIManager()
+    static public let shared = APIManager()
     
     // force using shared instance
     private init() {}
-    
-    func networkRequest(baseURL: String, endpoint: Endpoint, parameters: [String: Any]? = nil, headers: [String: String]? = nil) -> URLRequest {
+
+    public func networkRequest(baseURL: String, endpoint: Endpoint, parameters: [String: Any]? = nil, headers: [String: String]? = nil) -> URLRequest {
         var components = URLComponents(string: baseURL + endpoint.path)!
         guard let parameters = parameters else {
-            return requestBuilder(url: components.url!, endpoint: endpoint, headers: headers)
+            return networkRequestBuilder(url: components.url!, endpoint: endpoint, headers: headers)
         }
         components.queryItems = parameters.map {
             URLQueryItem(name: $0, value: "\($1)")
         }
         
-        return requestBuilder(url: components.url!, endpoint: endpoint, headers: headers)
+        return networkRequestBuilder(url: components.url!, endpoint: endpoint, headers: headers)
     }
     
-    func requestBuilder(url: URL, endpoint: Endpoint, headers: [String: String]? = nil) -> URLRequest {
+    public func networkRequestBuilder(url: URL, endpoint: Endpoint, headers: [String: String]? = nil) -> URLRequest {
         let request = NSMutableURLRequest(url: url)
         request.httpMethod = endpoint.method.rawValue
         headers?.forEach {
@@ -37,7 +37,7 @@ public class APIManager {
         return request as URLRequest
     }
     
-    func networkTask<T: Codable>(request: URLRequest, endpoint: Endpoint, completionHandler: @escaping (T?, Error?) -> Void) {
+    public func networkTask<T: Codable>(request: URLRequest, completionHandler: @escaping (T?, Error?) -> Void) {
         let session: URLSession = URLSession.shared
         
         let task = session.dataTask(with: request) { data, _, error in
@@ -53,7 +53,6 @@ public class APIManager {
             } catch let error { // catches decoding error from the try
                 completionHandler(nil, error)
             }
-            
         }
         task.resume()
     }
