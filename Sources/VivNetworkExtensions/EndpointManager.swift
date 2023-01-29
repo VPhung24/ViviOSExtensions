@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  EndpointManager.swift
 //  
 //
 //  Created by Vivian Phung on 1/27/23.

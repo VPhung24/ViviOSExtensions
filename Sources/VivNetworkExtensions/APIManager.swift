@@ -56,4 +56,20 @@ public class APIManager {
         }
         task.resume()
     }
+    
+    public func networkResponseAsString(parameters: [String: Any], header: [String: String], url: String, endpoint: Endpoint, completionHandler: @escaping (String?, Error?) -> Void) {
+        let urlRequest = networkRequest(baseURL: url, endpoint: endpoint, parameters: parameters, headers: header)
+        URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+            guard let responseData = data, error == nil else {
+                completionHandler(nil, error)
+                return
+            }
+            
+            if let returnData = String(data: responseData, encoding: .utf8) {
+                completionHandler(returnData, nil)
+            } else {
+                completionHandler(nil, NetworkError.decodingDataToString)
+            }
+        }.resume()
+    }
 }

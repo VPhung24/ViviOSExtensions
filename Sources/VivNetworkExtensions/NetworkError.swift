@@ -10,4 +10,5 @@ import Foundation
 public enum NetworkError: Error {
     case imageError
     case bearerToken
+    case decodingDataToString
 }
