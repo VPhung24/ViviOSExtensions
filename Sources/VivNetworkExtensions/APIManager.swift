@@ -12,10 +12,32 @@ import UIKit
 
 public class APIManager {
     static public let shared = APIManager()
-    
     // force using shared instance
     private init() {}
-
+    
+    public func webSocketConnect(baseURL: String, endpoint: Endpoint, parameters: [String: Any]? = nil, headers: [String: String]? = nil) -> URLSessionWebSocketTask? {
+        let session: URLSession = URLSession.shared
+        let networkRequest = networkRequest(baseURL: baseURL, endpoint: endpoint, parameters: parameters, headers: headers)
+        return session.webSocketTask(with: networkRequest)
+    }
+    
+    public func decodeData<T: Codable>(_ data: Data, completionHandler: @escaping (T?, Error?) -> Void) {
+        let decoder = JSONDecoder()
+        
+        if T.self == String.self, let returnData = String(data: data, encoding: .utf8), let responseData = returnData as? T {
+            completionHandler(responseData, nil)
+        } else if T.self == Data.self, let _ = UIImage(data: data), let responseData = data as? T {
+            completionHandler(responseData, nil)
+        }
+        
+        do {
+            let jsonData: T = try decoder.decode(T.self, from: data)
+            completionHandler(jsonData, nil)
+        } catch let error { // catches decoding error from the try
+            completionHandler(nil, error)
+        }
+    }
+    
     public func networkRequest(baseURL: String, endpoint: Endpoint, parameters: [String: Any]? = nil, headers: [String: String]? = nil) -> URLRequest {
         var components = URLComponents(string: baseURL + endpoint.path)!
         guard let parameters = parameters else {
@@ -34,42 +56,25 @@ public class APIManager {
         headers?.forEach {
             request.addValue($1, forHTTPHeaderField: $0)
         }
+        
         return request as URLRequest
     }
     
     public func networkTask<T: Codable>(request: URLRequest, completionHandler: @escaping (T?, Error?) -> Void) {
         let session: URLSession = URLSession.shared
         
-        let task = session.dataTask(with: request) { data, _, error in
+        let task = session.dataTask(with: request) { [weak self] data, _, error in
             guard let responseData = data, error == nil else {
                 completionHandler(nil, error)
                 return
             }
             
-            let decoder = JSONDecoder()
-            do {
-                let jsonData: T = try decoder.decode(T.self, from: responseData)
-                completionHandler(jsonData, nil)
-            } catch let error { // catches decoding error from the try
-                completionHandler(nil, error)
+            self?.decodeData(responseData) { (response: T?, error: Error?) in
+                completionHandler(response, error)
             }
+            
         }
         task.resume()
     }
     
-    public func networkResponseAsString(parameters: [String: Any], header: [String: String], url: String, endpoint: Endpoint, completionHandler: @escaping (String?, Error?) -> Void) {
-        let urlRequest = networkRequest(baseURL: url, endpoint: endpoint, parameters: parameters, headers: header)
-        URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
-            guard let responseData = data, error == nil else {
-                completionHandler(nil, error)
-                return
-            }
-            
-            if let returnData = String(data: responseData, encoding: .utf8) {
-                completionHandler(returnData, nil)
-            } else {
-                completionHandler(nil, NetworkError.decodingDataToString)
-            }
-        }.resume()
-    }
 }
