@@ -14,9 +14,9 @@ final class VivUIKitExtensionsUserDefaultsContactTests: XCTestCase {
     func testContactUserDefaultsExtension() throws {
         let contact = CNMutableContact()
         contact.givenName = "TestGivenName"
-        
+
         UserDefaults.standard.set(contact, forKey: "Contact")
-        
+
         let retrivedContact = UserDefaults.standard.contact(forKey: "Contact")
         XCTAssertEqual(contact, retrivedContact)
     }

@@ -1,5 +1,5 @@
 //
-//  UserDefaults+Extensions.swift
+//  UserDefaults+Contacts+Extensions.swift
 //  VivUIKitExtensions
 //
 //  Created by Vivian Phung on 10/27/22.
@@ -25,7 +25,7 @@ public extension UserDefaults {
      returns the contact associated with the specified key
      */
     func contact(forKey defaultName: String) -> CNContact? {
-        
+
         if let data = UserDefaults.standard.data(forKey: defaultName) {
             do {
                 if let loadedContact = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [CNContact.self], from: data) as? CNContact {

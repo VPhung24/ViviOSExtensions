@@ -28,5 +28,8 @@ let package = Package(
         .testTarget(
             name: "VivUIKitExtensionsTests",
             dependencies: ["VivUIKitExtensions"]),
+        .testTarget(
+            name: "VivNetworkExtensionsTests",
+            dependencies: ["VivNetworkExtensions"]),
     ]
 )

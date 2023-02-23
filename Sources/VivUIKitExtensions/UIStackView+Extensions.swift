@@ -8,12 +8,13 @@
 import UIKit
 
 public extension UIStackView {
-    convenience init(arrangedSubViews: [UIView] = [], axis: NSLayoutConstraint.Axis, distribution: UIStackView.Distribution = .fill) {
-        self.init(arrangedSubviews: arrangedSubViews)
-        self.preservesSuperviewLayoutMargins = true
-        self.isLayoutMarginsRelativeArrangement = true
-        self.distribution = distribution
-        self.axis = axis
-        self.spacing = 10
+    static func configuredStackView(arrangedSubviews: [UIView], axis: NSLayoutConstraint.Axis, distribution: UIStackView.Distribution = .fill) -> UIStackView {
+        let stackView = UIStackView(arrangedSubviews: arrangedSubviews)
+        stackView.preservesSuperviewLayoutMargins = true
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.distribution = distribution
+        stackView.axis = axis
+        stackView.spacing = 10
+        return stackView
     }
 }

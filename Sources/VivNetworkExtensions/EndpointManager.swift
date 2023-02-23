@@ -15,27 +15,27 @@ public enum Method: String {
 public enum ContentType: String, CustomStringConvertible {
     case json = "application/json; charset=utf-8"
     case urlencoded = "application/x-www-form-urlencoded"
-    
+
     public var description: String {
         get {
             return self.rawValue
         }
     }
-    
+
     public var key: String {
         get {
             return "Content-Type"
         }
     }
-    
+
     public init?(type: ContentType) {
         self.init(rawValue: type.rawValue)
-        
+
         return nil
     }
 }
 
-public enum Accept: String, CustomStringConvertible {    
+public enum Accept: String, CustomStringConvertible {
     case json = "application/json; charset=utf-8"
 
     public var description: String {
@@ -43,7 +43,7 @@ public enum Accept: String, CustomStringConvertible {
             return self.rawValue
         }
     }
-    
+
     public var key: String {
         get {
             return "Accept"
@@ -59,12 +59,11 @@ public enum Accept: String, CustomStringConvertible {
 public protocol Header {
     var contentType: ContentType { get set }
     var accept: Accept { get set }
-    
-    init(contentType: ContentType, accept: Accept);
+
+    init(contentType: ContentType, accept: Accept)
 }
 
 public protocol Endpoint {
     var path: String { get }
     var method: Method { get }
 }
-
